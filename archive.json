@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2023-06-25T00:27:12.310362+00:00",
+  "timestamp": "2023-06-27T00:24:10.550419+00:00",
   "repo": "chris-wood/draft-group-privacypass-k-check",
   "labels": [
     {
@@ -49,6 +49,38 @@
       "color": "ffffff"
     }
   ],
-  "issues": [],
+  "issues": [
+    {
+      "number": 1,
+      "id": "I_kwDOJv72Bc5pzdtY",
+      "title": "Enforce a minimum validity time?",
+      "url": "https://github.com/chris-wood/draft-group-privacypass-k-check/issues/1",
+      "state": "OPEN",
+      "author": "tfpauly",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "If the resource can get refreshed very frequently (like every second), a client could still be targeted without detecting an attack. One solution is to have a minimum time for validity.",
+      "createdAt": "2023-06-26T15:54:23Z",
+      "updatedAt": "2023-06-26T16:01:09Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "tfpauly",
+          "authorAssociation": "NONE",
+          "body": "You could also have the mirror police the keys being distributed to make sure that key rotations seem reasonable, and there's not a flipping between keys that could look like targeting.",
+          "createdAt": "2023-06-26T15:57:35Z",
+          "updatedAt": "2023-06-26T15:57:35Z"
+        },
+        {
+          "author": "tfpauly",
+          "authorAssociation": "NONE",
+          "body": "Or ensure that enough clients saw this key before the key changed...",
+          "createdAt": "2023-06-26T16:01:09Z",
+          "updatedAt": "2023-06-26T16:01:09Z"
+        }
+      ]
+    }
+  ],
   "pulls": []
 }
