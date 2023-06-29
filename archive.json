@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2023-06-27T00:24:10.550419+00:00",
+  "timestamp": "2023-06-29T00:25:20.028920+00:00",
   "repo": "chris-wood/draft-group-privacypass-k-check",
   "labels": [
     {
@@ -62,7 +62,7 @@
       "labels": [],
       "body": "If the resource can get refreshed very frequently (like every second), a client could still be targeted without detecting an attack. One solution is to have a minimum time for validity.",
       "createdAt": "2023-06-26T15:54:23Z",
-      "updatedAt": "2023-06-26T16:01:09Z",
+      "updatedAt": "2023-06-28T14:40:48Z",
       "closedAt": null,
       "comments": [
         {
@@ -78,9 +78,177 @@
           "body": "Or ensure that enough clients saw this key before the key changed...",
           "createdAt": "2023-06-26T16:01:09Z",
           "updatedAt": "2023-06-26T16:01:09Z"
+        },
+        {
+          "author": "chris-wood",
+          "authorAssociation": "OWNER",
+          "body": "[From @dvorak42](https://github.com/chris-wood/draft-group-privacypass-k-check/pull/2#discussion_r1245310746).",
+          "createdAt": "2023-06-28T14:40:47Z",
+          "updatedAt": "2023-06-28T14:40:47Z"
         }
       ]
     }
   ],
-  "pulls": []
+  "pulls": [
+    {
+      "number": 2,
+      "id": "PR_kwDOJv72Bc5UBxwa",
+      "title": "Improve mirror protocol",
+      "url": "https://github.com/chris-wood/draft-group-privacypass-k-check/pull/2",
+      "state": "OPEN",
+      "author": "chris-wood",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2023-06-27T12:23:49Z",
+      "updatedAt": "2023-06-28T16:12:49Z",
+      "baseRepository": "chris-wood/draft-group-privacypass-k-check",
+      "baseRefName": "main",
+      "baseRefOid": "589d00fd0754d45aa1f790086b8a177f7fbd94e7",
+      "headRepository": "chris-wood/draft-group-privacypass-k-check",
+      "headRefName": "caw/better",
+      "headRefOid": "84aa982de7ecd2ef28e627d12ab99f17cfeb3942",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [
+        {
+          "author": "beurdouche",
+          "authorAssociation": "NONE",
+          "body": "That looks fine \ud83d\udc4d ",
+          "createdAt": "2023-06-28T16:12:49Z",
+          "updatedAt": "2023-06-28T16:12:49Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOJv72Bc5ZmcrR",
+          "commit": {
+            "abbreviatedOid": "84aa982"
+          },
+          "author": "dvorak42",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-06-28T14:28:44Z",
+          "updatedAt": "2023-06-28T14:32:19Z",
+          "comments": [
+            {
+              "originalPosition": 50,
+              "body": "I wonder if the mirror should just be enforcing this. It doesn't seem possible for the mirror to enforce max validity windows without making these decisions locally (it can't tell max-age=10 seconds means that the resource caching is too low or it has just hit the resource towards the end of its lifetime.",
+              "createdAt": "2023-06-28T14:28:44Z",
+              "updatedAt": "2023-06-28T14:32:19Z"
+            },
+            {
+              "originalPosition": 59,
+              "body": "Should this take into account the Accept header from the client? ",
+              "createdAt": "2023-06-28T14:30:34Z",
+              "updatedAt": "2023-06-28T14:32:19Z"
+            },
+            {
+              "originalPosition": 79,
+              "body": "Should there be logic for network/server errors from the target not accidentally polluting the mirror's cache for some temporary outage?",
+              "createdAt": "2023-06-28T14:31:37Z",
+              "updatedAt": "2023-06-28T14:32:19Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOJv72Bc5Zmm0m",
+          "commit": {
+            "abbreviatedOid": "84aa982"
+          },
+          "author": "chris-wood",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-06-28T14:40:18Z",
+          "updatedAt": "2023-06-28T14:40:18Z",
+          "comments": [
+            {
+              "originalPosition": 50,
+              "body": "Yeah, maybe. Let's track this in #1.",
+              "createdAt": "2023-06-28T14:40:18Z",
+              "updatedAt": "2023-06-28T14:40:18Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOJv72Bc5Zmnr_",
+          "commit": {
+            "abbreviatedOid": "84aa982"
+          },
+          "author": "chris-wood",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-06-28T14:41:53Z",
+          "updatedAt": "2023-06-28T14:41:53Z",
+          "comments": [
+            {
+              "originalPosition": 59,
+              "body": "As in, should the mirror, uh, mirror the Accept header from the client in its request to the target? If so, that seems like a good idea.",
+              "createdAt": "2023-06-28T14:41:53Z",
+              "updatedAt": "2023-06-28T14:41:53Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOJv72Bc5Zmn10",
+          "commit": {
+            "abbreviatedOid": "84aa982"
+          },
+          "author": "chris-wood",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-06-28T14:42:08Z",
+          "updatedAt": "2023-06-28T14:42:09Z",
+          "comments": [
+            {
+              "originalPosition": 79,
+              "body": "We probably should have a path for this, yeah. I'll add it.",
+              "createdAt": "2023-06-28T14:42:08Z",
+              "updatedAt": "2023-06-28T14:42:09Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOJv72Bc5ZmpCw",
+          "commit": {
+            "abbreviatedOid": "84aa982"
+          },
+          "author": "dvorak42",
+          "authorAssociation": "NONE",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2023-06-28T14:43:55Z",
+          "updatedAt": "2023-06-28T14:43:55Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOJv72Bc5Zm0X7",
+          "commit": {
+            "abbreviatedOid": "84aa982"
+          },
+          "author": "dvorak42",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-06-28T15:03:28Z",
+          "updatedAt": "2023-06-28T15:03:28Z",
+          "comments": [
+            {
+              "originalPosition": 59,
+              "body": "Yeah, since different clients may expect different things or accept different variants/content-types. Though this might also complicate the caching logic if different Accept values result in different resource responses from the target.",
+              "createdAt": "2023-06-28T15:03:28Z",
+              "updatedAt": "2023-06-28T15:03:28Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
 }
