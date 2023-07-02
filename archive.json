@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2023-06-29T00:25:20.028920+00:00",
+  "timestamp": "2023-07-02T00:26:17.710213+00:00",
   "repo": "chris-wood/draft-group-privacypass-k-check",
   "labels": [
     {
@@ -62,7 +62,7 @@
       "labels": [],
       "body": "If the resource can get refreshed very frequently (like every second), a client could still be targeted without detecting an attack. One solution is to have a minimum time for validity.",
       "createdAt": "2023-06-26T15:54:23Z",
-      "updatedAt": "2023-06-28T14:40:48Z",
+      "updatedAt": "2023-06-29T14:05:02Z",
       "closedAt": null,
       "comments": [
         {
@@ -85,6 +85,13 @@
           "body": "[From @dvorak42](https://github.com/chris-wood/draft-group-privacypass-k-check/pull/2#discussion_r1245310746).",
           "createdAt": "2023-06-28T14:40:47Z",
           "updatedAt": "2023-06-28T14:40:47Z"
+        },
+        {
+          "author": "chris-wood",
+          "authorAssociation": "OWNER",
+          "body": "#2 includes a minimum validity time as a mirror configuration parameter. ",
+          "createdAt": "2023-06-29T14:05:02Z",
+          "updatedAt": "2023-06-29T14:05:02Z"
         }
       ]
     }
@@ -95,24 +102,26 @@
       "id": "PR_kwDOJv72Bc5UBxwa",
       "title": "Improve mirror protocol",
       "url": "https://github.com/chris-wood/draft-group-privacypass-k-check/pull/2",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "chris-wood",
       "authorAssociation": "OWNER",
       "assignees": [],
       "labels": [],
       "body": "",
       "createdAt": "2023-06-27T12:23:49Z",
-      "updatedAt": "2023-06-28T16:12:49Z",
+      "updatedAt": "2023-06-29T14:06:10Z",
       "baseRepository": "chris-wood/draft-group-privacypass-k-check",
       "baseRefName": "main",
       "baseRefOid": "589d00fd0754d45aa1f790086b8a177f7fbd94e7",
       "headRepository": "chris-wood/draft-group-privacypass-k-check",
       "headRefName": "caw/better",
-      "headRefOid": "84aa982de7ecd2ef28e627d12ab99f17cfeb3942",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "3ea27d1d3ee5edc046da4c593f23246024dd5f6c",
+      "closedAt": "2023-06-29T14:06:09Z",
+      "mergedAt": "2023-06-29T14:06:09Z",
+      "mergedBy": "chris-wood",
+      "mergeCommit": {
+        "oid": "5417e54a7a7c32ba33c8bfb05cc201bd6738162e"
+      },
       "comments": [
         {
           "author": "beurdouche",
@@ -247,8 +256,74 @@
               "updatedAt": "2023-06-28T15:03:28Z"
             }
           ]
+        },
+        {
+          "id": "PRR_kwDOJv72Bc5ZtIJP",
+          "commit": {
+            "abbreviatedOid": "84aa982"
+          },
+          "author": "chris-wood",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-06-29T10:26:05Z",
+          "updatedAt": "2023-06-29T10:26:05Z",
+          "comments": [
+            {
+              "originalPosition": 79,
+              "body": "Looking at this again, there's already text above which says that mirror replies to clients with 4xx if the mirror request fails for any reasons. ",
+              "createdAt": "2023-06-29T10:26:05Z",
+              "updatedAt": "2023-06-29T10:26:06Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOJv72Bc5Zuj72",
+          "commit": {
+            "abbreviatedOid": "84aa982"
+          },
+          "author": "chris-wood",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-06-29T14:06:04Z",
+          "updatedAt": "2023-06-29T14:06:05Z",
+          "comments": [
+            {
+              "originalPosition": 59,
+              "body": "I had to check the spec, but it turns out that Accept doesn't complicate caching as much as the Vary header, so I left this in.",
+              "createdAt": "2023-06-29T14:06:05Z",
+              "updatedAt": "2023-06-29T14:06:05Z"
+            }
+          ]
         }
       ]
+    },
+    {
+      "number": 3,
+      "id": "PR_kwDOJv72Bc5UUn3e",
+      "title": "Align with main consistency document",
+      "url": "https://github.com/chris-wood/draft-group-privacypass-k-check/pull/3",
+      "state": "OPEN",
+      "author": "chris-wood",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2023-06-30T11:14:48Z",
+      "updatedAt": "2023-06-30T11:14:48Z",
+      "baseRepository": "chris-wood/draft-group-privacypass-k-check",
+      "baseRefName": "main",
+      "baseRefOid": "5417e54a7a7c32ba33c8bfb05cc201bd6738162e",
+      "headRepository": "chris-wood/draft-group-privacypass-k-check",
+      "headRefName": "caw/align",
+      "headRefOid": "d10fec3c9e689eb936c1d4cec68d24fe79c12063",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
     }
   ]
 }
