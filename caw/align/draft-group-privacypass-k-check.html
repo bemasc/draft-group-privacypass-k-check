@@ -1219,12 +1219,12 @@ require clients to obtain and use a public key for execution. In Privacy Pass,
 public keys are used by clients when issuing and redeeming tokens for anonymous
 authorization. In Oblivious HTTP (OHTTP), clients use public keys to encrypt
 messages to a gateway server.<a href="#section-1-1" class="pilcrow">¶</a></p>
-<p id="section-1-2">Deployments of protocols such as Privacy Pass and OHTTP requires that many, if not all,
-clients share the same key. This is because the privacy properties depend on the client
+<p id="section-1-2">Deployments of protocols such as Privacy Pass and OHTTP requires that very large sets of clients
+share the same key, or even that all clients globally share the same key. This is because the privacy properties depend on the client
 anonymity set size. In other words, the key that's used determines the set to which
-a particular belongs. Using a unique, client-speicifc key would yield an anonymity set
+a particular client belongs. Using a unique, client-specific key would yield an anonymity set
 of size one, therefore violating the desired privacy goals of the system. Clients that
-use the same key are said to have a consistent view of the key.<a href="#section-1-2" class="pilcrow">¶</a></p>
+use the same key as one another are said to have a consistent view of the key.<a href="#section-1-2" class="pilcrow">¶</a></p>
 <p id="section-1-3"><span>[<a href="#CONSISTENCY" class="cite xref">CONSISTENCY</a>]</span> describes this notion of consistency in more detail. It also outlines
 several designs that can be used as the basis for consistency systems. This document is
 a concrete instantiation of one of those designs -- Shared Cache Discovery. In particular,
