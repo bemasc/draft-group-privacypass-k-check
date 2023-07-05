@@ -4,8 +4,8 @@
 
 Privacy Pass                                                      J. Doe
 Internet-Draft                                                      Mars
-Intended status: Standards Track                            30 June 2023
-Expires: 1 January 2024
+Intended status: Standards Track                             5 July 2023
+Expires: 6 January 2024
 
 
            The K-Check Protocol for HTTP Resource Consistency
@@ -16,7 +16,7 @@ Abstract
    This document describes a protocol called K-Check for implementing
    HTTP resource consistency checks.  The primary use case for K-Check
    is for deployments of protocols such as Privacy Pass and Oblivious
-   HTTP wherein privacy goals require that clients have a consistent
+   HTTP in which privacy goals require that clients have a consistent
    view of some protocol-specific resource (typically, a public key).
 
 About This Document
@@ -49,7 +49,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 1 January 2024.
+   This Internet-Draft will expire on 6 January 2024.
 
 Copyright Notice
 
