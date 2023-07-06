@@ -4,8 +4,8 @@
 
 Privacy Pass                                                      J. Doe
 Internet-Draft                                                      Mars
-Intended status: Standards Track                            29 June 2023
-Expires: 31 December 2023
+Intended status: Standards Track                             6 July 2023
+Expires: 7 January 2024
 
 
            The K-Check Protocol for HTTP Resource Consistency
@@ -13,7 +13,11 @@ Expires: 31 December 2023
 
 Abstract
 
-   TODO Abstract
+   This document describes a protocol called K-Check for implementing
+   HTTP resource consistency checks.  The primary use case for K-Check
+   is for deployments of protocols such as Privacy Pass and Oblivious
+   HTTP in which privacy goals require that clients have a consistent
+   view of some protocol-specific resource (typically, a public key).
 
 About This Document
 
@@ -45,7 +49,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 31 December 2023.
+   This Internet-Draft will expire on 7 January 2024.
 
 Copyright Notice
 
@@ -71,24 +75,49 @@ Table of Contents
    5.  K-Check
      5.1.  Privacy Pass Profile
      5.2.  Oblivious HTTP Profile
-   6.  Consistency Properties
-   7.  Security Considerations
-   8.  IANA Considerations
-   9.  References
-     9.1.  Normative References
-     9.2.  Informative References
+   6.  Security Considerations
+   7.  IANA Considerations
+   8.  References
+     8.1.  Normative References
+     8.2.  Informative References
    Acknowledgments
    Author's Address
 
 1.  Introduction
 
-   This document describes a protocol mechanism based on [DoubleCheck]
-   for checking that an HTTP resource is consistent with the view of one
-   or more mirrors.  In this context, a mirror is an HTTP server that
-   fetches and caches copies of an HTTP resource for clients to use for
-   consistency checks.  More specifically, clients obtain copies of a
-   desired resource from a mirror and then compare those copies to their
-   resource.
+   Privacy-enhancing protocols such as Privacy Pass [PRIVACYPASS] and
+   Oblivious HTTP [OHTTP] require clients to obtain and use a public key
+   for execution.  In Privacy Pass, public keys are used by clients when
+   issuing and redeeming tokens for anonymous authorization.  In
+   Oblivious HTTP (OHTTP), clients use public keys to encrypt messages
+   to a gateway server.
+
+   Deployments of protocols such as Privacy Pass and OHTTP requires that
+   very large sets of clients share the same key, or even that all
+   clients globally share the same key.  This is because the privacy
+   properties depend on the client anonymity set size.  In other words,
+   the key that's used determines the set to which a particular client
+   belongs.  Using a unique, client-specific key would yield an
+   anonymity set of size one, therefore violating the desired privacy
+   goals of the system.  Clients that use the same key as one another
+   are said to have a consistent view of the key.
+
+   [CONSISTENCY] describes this notion of consistency in more detail.
+   It also outlines several designs that can be used as the basis for
+   consistency systems.  This document is a concrete instantiation of
+   one of those designs, "Shared Cache Discovery".  In particular, this
+   document describes a protocol called K-Check, based on
+   [DOUBLE-CHECK], for checking that an HTTP resource is consistent with
+   the view of one or more so-called mirrors.  In this context, a mirror
+   is an HTTP resource that fetches and caches copies of an HTTP
+   resource for clients to use for consistency checks.  More
+   specifically, clients obtain copies of a desired resource from a
+   mirror and then compare those copies to their resource.
+
+   K-Check is a generic protocol for consistency checks of HTTP
+   resources, and therefore is suitable for any protocol that needs
+   consistency of an HTTP resource.  Section 5.1 and Section 5.2
+   describe Privacy Pass and OHTTP profiles for K-Check, respectively.
 
 2.  Conventions and Definitions
 
@@ -104,22 +133,23 @@ Table of Contents
 
    *  Resource: A HTTP resource identified by a URL.
 
-   *  Normalized resource: A normalized HTTP resource representation is
-      a unique or otherwise protocol-specific representation that is
-      derived from an HTTP resource.  The process of normalization is
-      specific to a protocol and the resource in question.
+   *  Normalized resource representation: A unique or otherwise
+      protocol-specific representation that is derived from an HTTP
+      resource.  The process of normalization is specific to a protocol
+      and the resource in question.
 
-   *  Mirror: A HTTP server that fetches and caches HTTP resources.
+   *  Mirror: A HTTP resource that fetches and caches HTTP resources.
 
 4.  Mirror Protocol
 
-   The mirror protocol is a simple protocol similar to a reverse-proxy.
-   Each mirror is identified by a Mirror URI Template [RFC6570].  The
-   scheme for the Mirror URI Template MUST be "https".  The Mirror URI
-   Template uses the Level 3 encoding defined Section 1.2 of [RFC6570]
-   and contains one variables: "target", which is the percent-encoded
-   URL of a HTTP resource to be mirrored.  Example Mirror URI Templates
-   are shown below.
+   The mirror protocol is a simple HTTP-based protocol similar to a
+   reverse proxy.  Each mirror resource, henceforth referred to as a
+   mirror, is identified by a Mirror URI Template [RFC6570].  The scheme
+   for the Mirror URI Template MUST be "https".  The Mirror URI Template
+   uses the Level 3 encoding defined Section 1.2 of [RFC6570] and
+   contains one variables: "target", which is the percent-encoded URL of
+   a HTTP resource to be mirrored.  Example Mirror URI Templates are
+   shown below.
 
    https://mirror.example/mirror{?target}
    https://mirror.example/{target}
@@ -260,9 +290,9 @@ accept = application/private-token-issuer-directory
 
 5.  K-Check
 
-   Clients are configured with the URLs for one or more mirror servers.
-   Each URL identifies an API endpoint that clients use to obtain
-   mirrored copies of a resource.
+   Clients are configured with the URLs for one or more mirror
+   resources.  Each URL identifies an API endpoint that clients use to
+   obtain mirrored copies of a resource.
 
    The input to K-Check is a candidate HTTP resource, a target URL at
    which the resource was obtained, and a normalized representation of
@@ -319,9 +349,9 @@ accept = application/private-token-issuer-directory
      ]
    }
 
-   Clients would take each “token-key” parameter, base64url-decode the
-   result, and then derive a token key identifier as defined in the
-   specification.  Each token key identifier is a normalized
+   Clients take each “token-key” parameter, base64url-decode the result,
+   and then derive a token key identifier as defined in Section 6.5 of
+   [PRIVACYPASS-ISSUANCE].  Each token key identifier is a normalized
    representation of the resource.
 
 5.2.  Oblivious HTTP Profile
@@ -341,9 +371,11 @@ accept = application/private-token-issuer-directory
    their configured mirrors to ensure that this configuration is correct
    for the given gateway.
 
-6.  Consistency Properties
+6.  Security Considerations
 
-   The consistency properties of K-Check are as follows:
+   K-Check assumes that at least one client-configured mirror is honest.
+   Under this assumption, the consistency properties of K-Check are as
+   follows:
 
    1.  With honest mirrors, clients that successfully check a resource
        are assured that they share the same copy of the resource with
@@ -357,21 +389,46 @@ accept = application/private-token-issuer-directory
        probability that each individual mirror check succeeds in the
        mirror protocol.
 
-7.  Security Considerations
+   Unless all clients share the same configured mirrors, K-Check does
+   not achieve global consistency as is defined in [CONSISTENCY].
 
-   TODO Security
-
-8.  IANA Considerations
+7.  IANA Considerations
 
    This document has no IANA actions.
 
-9.  References
+8.  References
 
-9.1.  Normative References
+8.1.  Normative References
 
    [BHTTP]    Thomson, M. and C. A. Wood, "Binary Representation of HTTP
               Messages", RFC 9292, DOI 10.17487/RFC9292, August 2022,
               <https://www.rfc-editor.org/rfc/rfc9292>.
+
+   [CONSISTENCY]
+              Davidson, A., Finkel, M., Thomson, M., and C. A. Wood,
+              "Key Consistency and Discovery", Work in Progress,
+              Internet-Draft, draft-ietf-privacypass-key-consistency-00,
+              24 October 2022, <https://datatracker.ietf.org/doc/html/
+              draft-ietf-privacypass-key-consistency-00>.
+
+   [OHTTP]    Thomson, M. and C. A. Wood, "Oblivious HTTP", Work in
+              Progress, Internet-Draft, draft-ietf-ohai-ohttp-08, 15
+              March 2023, <https://datatracker.ietf.org/doc/html/draft-
+              ietf-ohai-ohttp-08>.
+
+   [PRIVACYPASS]
+              Davidson, A., Iyengar, J., and C. A. Wood, "The Privacy
+              Pass Architecture", Work in Progress, Internet-Draft,
+              draft-ietf-privacypass-architecture-13, 15 June 2023,
+              <https://datatracker.ietf.org/doc/html/draft-ietf-
+              privacypass-architecture-13>.
+
+   [PRIVACYPASS-ISSUANCE]
+              Celi, S., Davidson, A., Valdez, S., and C. A. Wood,
+              "Privacy Pass Issuance Protocol", Work in Progress,
+              Internet-Draft, draft-ietf-privacypass-protocol-11, 26
+              June 2023, <https://datatracker.ietf.org/doc/html/draft-
+              ietf-privacypass-protocol-11>.
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -387,14 +444,14 @@ accept = application/private-token-issuer-directory
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
               May 2017, <https://www.rfc-editor.org/rfc/rfc8174>.
 
-9.2.  Informative References
+8.2.  Informative References
 
    [CACHING]  Fielding, R., Ed., Nottingham, M., Ed., and J. Reschke,
               Ed., "HTTP Caching", STD 98, RFC 9111,
               DOI 10.17487/RFC9111, June 2022,
               <https://www.rfc-editor.org/rfc/rfc9111>.
 
-   [DoubleCheck]
+   [DOUBLE-CHECK]
               Schwartz, B. M., "Key Consistency by Double-Checking via a
               Semi-Trusted Proxy", Work in Progress, Internet-Draft,
               draft-schwartz-ohai-consistency-doublecheck-03, 19 October
@@ -403,7 +460,7 @@ accept = application/private-token-issuer-directory
 
 Acknowledgments
 
-   This document is based on the [DoubleCheck] protocol from Benjamin
+   This document is based on the [DOUBLE-CHECK] protocol from Benjamin
    Schwartz.
 
 Author's Address
