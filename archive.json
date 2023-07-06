@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2023-07-02T00:26:17.710213+00:00",
+  "timestamp": "2023-07-06T00:25:17.188608+00:00",
   "repo": "chris-wood/draft-group-privacypass-k-check",
   "labels": [
     {
@@ -311,19 +311,70 @@
       "labels": [],
       "body": "",
       "createdAt": "2023-06-30T11:14:48Z",
-      "updatedAt": "2023-06-30T11:14:48Z",
+      "updatedAt": "2023-07-05T15:36:18Z",
       "baseRepository": "chris-wood/draft-group-privacypass-k-check",
       "baseRefName": "main",
       "baseRefOid": "5417e54a7a7c32ba33c8bfb05cc201bd6738162e",
       "headRepository": "chris-wood/draft-group-privacypass-k-check",
       "headRefName": "caw/align",
-      "headRefOid": "d10fec3c9e689eb936c1d4cec68d24fe79c12063",
+      "headRefOid": "0556dcbdfc68033ca630d0fb97bdd6b22b46621f",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
       "comments": [],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "PRR_kwDOJv72Bc5aRz4J",
+          "commit": {
+            "abbreviatedOid": "d10fec3"
+          },
+          "author": "tfpauly",
+          "authorAssociation": "NONE",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2023-07-05T14:07:33Z",
+          "updatedAt": "2023-07-05T14:13:59Z",
+          "comments": [
+            {
+              "originalPosition": 19,
+              "body": "```suggestion\r\nHTTP in which privacy goals require that clients have a consistent view of some protocol-specific\r\n```\r\nI personally find \"wherein\" a bit formal",
+              "createdAt": "2023-07-05T14:07:33Z",
+              "updatedAt": "2023-07-05T14:13:59Z"
+            },
+            {
+              "originalPosition": 36,
+              "body": "```suggestion\r\nDeployments of protocols such as Privacy Pass and OHTTP requires that very large sets of clients\r\nshare the same key, or even that all clients globally share the same key. This is because the privacy properties depend on the client\r\n```",
+              "createdAt": "2023-07-05T14:09:48Z",
+              "updatedAt": "2023-07-05T14:13:59Z"
+            },
+            {
+              "originalPosition": 38,
+              "body": "```suggestion\r\na particular client belongs. Using a unique, client-specific key would yield an anonymity set\r\n```",
+              "createdAt": "2023-07-05T14:10:06Z",
+              "updatedAt": "2023-07-05T14:13:59Z"
+            },
+            {
+              "originalPosition": 40,
+              "body": "```suggestion\r\nuse the same key as one another are said to have a consistent view of the key.\r\n```",
+              "createdAt": "2023-07-05T14:10:24Z",
+              "updatedAt": "2023-07-05T14:13:59Z"
+            },
+            {
+              "originalPosition": 44,
+              "body": "```suggestion\r\na concrete instantiation of one of those designs, \"Shared Cache Discovery\". In particular,\r\n```",
+              "createdAt": "2023-07-05T14:11:06Z",
+              "updatedAt": "2023-07-05T14:13:59Z"
+            },
+            {
+              "originalPosition": 78,
+              "body": "```suggestion\r\nThe mirror protocol is a simple HTTP-based protocol similar to a reverse proxy. Each mirror\r\n```",
+              "createdAt": "2023-07-05T14:13:42Z",
+              "updatedAt": "2023-07-05T14:13:59Z"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
