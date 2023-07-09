@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2023-07-06T00:25:17.188608+00:00",
+  "timestamp": "2023-07-09T00:28:44.156704+00:00",
   "repo": "chris-wood/draft-group-privacypass-k-check",
   "labels": [
     {
@@ -55,26 +55,26 @@
       "id": "I_kwDOJv72Bc5pzdtY",
       "title": "Enforce a minimum validity time?",
       "url": "https://github.com/chris-wood/draft-group-privacypass-k-check/issues/1",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "tfpauly",
-      "authorAssociation": "NONE",
+      "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "If the resource can get refreshed very frequently (like every second), a client could still be targeted without detecting an attack. One solution is to have a minimum time for validity.",
       "createdAt": "2023-06-26T15:54:23Z",
-      "updatedAt": "2023-06-29T14:05:02Z",
-      "closedAt": null,
+      "updatedAt": "2023-07-06T11:30:18Z",
+      "closedAt": "2023-07-06T11:30:18Z",
       "comments": [
         {
           "author": "tfpauly",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "body": "You could also have the mirror police the keys being distributed to make sure that key rotations seem reasonable, and there's not a flipping between keys that could look like targeting.",
           "createdAt": "2023-06-26T15:57:35Z",
           "updatedAt": "2023-06-26T15:57:35Z"
         },
         {
           "author": "tfpauly",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "body": "Or ensure that enough clients saw this key before the key changed...",
           "createdAt": "2023-06-26T16:01:09Z",
           "updatedAt": "2023-06-26T16:01:09Z"
@@ -92,6 +92,13 @@
           "body": "#2 includes a minimum validity time as a mirror configuration parameter. ",
           "createdAt": "2023-06-29T14:05:02Z",
           "updatedAt": "2023-06-29T14:05:02Z"
+        },
+        {
+          "author": "chris-wood",
+          "authorAssociation": "OWNER",
+          "body": "Closing as resolved by #2.",
+          "createdAt": "2023-07-06T11:30:18Z",
+          "updatedAt": "2023-07-06T11:30:18Z"
         }
       ]
     }
@@ -304,24 +311,26 @@
       "id": "PR_kwDOJv72Bc5UUn3e",
       "title": "Align with main consistency document",
       "url": "https://github.com/chris-wood/draft-group-privacypass-k-check/pull/3",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "chris-wood",
       "authorAssociation": "OWNER",
       "assignees": [],
       "labels": [],
       "body": "",
       "createdAt": "2023-06-30T11:14:48Z",
-      "updatedAt": "2023-07-05T15:36:18Z",
+      "updatedAt": "2023-07-06T11:30:04Z",
       "baseRepository": "chris-wood/draft-group-privacypass-k-check",
       "baseRefName": "main",
       "baseRefOid": "5417e54a7a7c32ba33c8bfb05cc201bd6738162e",
       "headRepository": "chris-wood/draft-group-privacypass-k-check",
       "headRefName": "caw/align",
       "headRefOid": "0556dcbdfc68033ca630d0fb97bdd6b22b46621f",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2023-07-06T11:30:03Z",
+      "mergedAt": "2023-07-06T11:30:03Z",
+      "mergedBy": "chris-wood",
+      "mergeCommit": {
+        "oid": "f6baeff15a7550ab185e6699ed91a0b318b62507"
+      },
       "comments": [],
       "reviews": [
         {
@@ -330,7 +339,7 @@
             "abbreviatedOid": "d10fec3"
           },
           "author": "tfpauly",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "state": "APPROVED",
           "body": "",
           "createdAt": "2023-07-05T14:07:33Z",
