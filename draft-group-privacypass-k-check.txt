@@ -4,8 +4,10 @@
 
 Privacy Pass                                               B. Beurdouche
 Internet-Draft                                           Inria & Mozilla
-Intended status: Standards Track                               S. Valdez
-Expires: 11 January 2024                                      Google LLC
+Intended status: Standards Track                               M. Finkel
+Expires: 11 January 2024                                      Apple Inc.
+                                                               S. Valdez
+                                                              Google LLC
                                                               C. A. Wood
                                                               Cloudflare
                                                             10 July 2023
@@ -473,6 +475,11 @@ Authors' Addresses
    Benjamin Beurdouche
    Inria & Mozilla
    Email: ietf@beurdouche.com
+
+
+   Matthew Finkel
+   Apple Inc.
+   Email: sysrqb@apple.com
 
 
    Steven Valdez
