@@ -1055,7 +1055,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Doe</td>
-<td class="center">Expires 7 January 2024</td>
+<td class="center">Expires 11 January 2024</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1068,12 +1068,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-group-privacypass-k-check-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2023-07-06" class="published">6 July 2023</time>
+<time datetime="2023-07-10" class="published">10 July 2023</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2024-01-07">7 January 2024</time></dd>
+<dd class="expires"><time datetime="2024-01-11">11 January 2024</time></dd>
 <dt class="label-authors">Author:</dt>
 <dd class="authors">
 <div class="author">
@@ -1125,7 +1125,7 @@ resource (typically, a public key).<a href="#section-abstract-1" class="pilcrow"
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 7 January 2024.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 11 January 2024.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1416,17 +1416,16 @@ cache-control: max-age=3600
 <p id="section-5-1">Clients are configured with the URLs for one or more mirror resources. Each URL identifies an API
 endpoint that clients use to obtain mirrored copies of a resource.<a href="#section-5-1" class="pilcrow">¶</a></p>
 <p id="section-5-2">The input to K-Check is a candidate HTTP resource, a target URL at which the resource
-was obtained, and a normalized representation of the input resource. To check this
+was obtained, and a representation of the input resource. To check this
 resource, the client runs the following steps for each configured mirror.<a href="#section-5-2" class="pilcrow">¶</a></p>
 <ol start="1" type="1" class="normal type-1" id="section-5-3">
 <li id="section-5-3.1">Send a mirror request to the mirror for the target URL. If the request fails, fail
 this mirror check.<a href="#section-5-3.1" class="pilcrow">¶</a>
 </li>
-        <li id="section-5-3.2">Otherwise, compute normalized values for the resource based on the mirror's response.<a href="#section-5-3.2" class="pilcrow">¶</a>
+        <li id="section-5-3.2">Otherwise, compute the first valid representation of the resource based on the mirror's response.<a href="#section-5-3.2" class="pilcrow">¶</a>
 </li>
-        <li id="section-5-3.3">Compare the normalized values to the input normalized representation. If none match,
-fail this mirror check. Otherwise, if there exists one matching resource normalized
-representation, this mirror check succeeds.<a href="#section-5-3.3" class="pilcrow">¶</a>
+        <li id="section-5-3.3">Compare the computed representation to the input representation. If they do not match,
+fail this mirror check. Otherwise, this mirror check succeeds.<a href="#section-5-3.3" class="pilcrow">¶</a>
 </li>
       </ol>
 <p id="section-5-4">If all mirror checks succeed, the client outputs success. Otherwise, the client has
@@ -1455,6 +1454,7 @@ following:<a href="#section-5.1-2" class="pilcrow">¶</a></p>
     {
       "token-type": 2,
       "token-key": "MI...AB",
+      "not-before": 1686913811,
     },
     {
       "token-type": 2,
@@ -1464,9 +1464,10 @@ following:<a href="#section-5.1-2" class="pilcrow">¶</a></p>
 }
 </pre><a href="#section-5.1-3" class="pilcrow">¶</a>
 </div>
-<p id="section-5.1-4">Clients take each “token-key” parameter, base64url-decode the result, and then
-derive a token key identifier as defined in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-privacypass-protocol-11#section-6.5" class="relref">Section 6.5</a> of [<a href="#PRIVACYPASS-ISSUANCE" class="cite xref">PRIVACYPASS-ISSUANCE</a>]</span>.
-Each token key identifier is a normalized representation of the resource.<a href="#section-5.1-4" class="pilcrow">¶</a></p>
+<p id="section-5.1-4">Clients compute the first valid representation of this directory, i.e., the first entry in the list that the client can use, which might be the key ID
+of the first key in the "token-keys" list (depending on the "not-before" value), or the
+key ID of the second key in the "token-keys" list. The key ID is computed as defined in
+<span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-privacypass-protocol-11#section-6.5" class="relref">Section 6.5</a> of [<a href="#PRIVACYPASS-ISSUANCE" class="cite xref">PRIVACYPASS-ISSUANCE</a>]</span>.<a href="#section-5.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="profile-ohttp">
@@ -1483,10 +1484,9 @@ common deployments are as follows:<a href="#section-5.2-1" class="pilcrow">¶</a
 </li>
         </ol>
 <p id="section-5.2-3">In both cases, clients begin with a gateway configuration and want to check it for consistency.
-In OHTTP, there is exactly one normalized resource representation for a gateway configuration –
-the configuration itself. Before using the configuration to encrypt a binary HTTP message to
-the gateway, clients can run K-Check with their configured mirrors to ensure that this
-configuration is correct for the given gateway.<a href="#section-5.2-3" class="pilcrow">¶</a></p>
+In OHTTP, there is exactly one representation for a gateway configuration – the configuration itself.
+Before using the configuration to encrypt a binary HTTP message to the gateway, clients can run
+K-Check with their configured mirrors to ensure that this configuration is correct for the given gateway.<a href="#section-5.2-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -1535,7 +1535,7 @@ as is defined in <span>[<a href="#CONSISTENCY" class="cite xref">CONSISTENCY</a>
 <dd class="break"></dd>
 <dt id="CONSISTENCY">[CONSISTENCY]</dt>
         <dd>
-<span class="refAuthor">Davidson, A.</span>, <span class="refAuthor">Finkel, M.</span>, <span class="refAuthor">Thomson, M.</span>, and <span class="refAuthor">C. A. Wood</span>, <span class="refTitle">"Key Consistency and Discovery"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-privacypass-key-consistency-00</span>, <time datetime="2022-10-24" class="refDate">24 October 2022</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-privacypass-key-consistency-00">https://datatracker.ietf.org/doc/html/draft-ietf-privacypass-key-consistency-00</a>&gt;</span>. </dd>
+<span class="refAuthor">Davidson, A.</span>, <span class="refAuthor">Finkel, M.</span>, <span class="refAuthor">Thomson, M.</span>, and <span class="refAuthor">C. A. Wood</span>, <span class="refTitle">"Key Consistency and Discovery"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-privacypass-key-consistency-01</span>, <time datetime="2023-07-10" class="refDate">10 July 2023</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-privacypass-key-consistency-01">https://datatracker.ietf.org/doc/html/draft-ietf-privacypass-key-consistency-01</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="OHTTP">[OHTTP]</dt>
         <dd>
