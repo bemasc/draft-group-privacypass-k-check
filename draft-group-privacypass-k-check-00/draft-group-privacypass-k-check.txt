@@ -2,10 +2,15 @@
 
 
 
-Privacy Pass                                                      J. Doe
-Internet-Draft                                                      Mars
-Intended status: Standards Track                            10 July 2023
-Expires: 11 January 2024
+Privacy Pass                                               B. Beurdouche
+Internet-Draft                                           Inria & Mozilla
+Intended status: Standards Track                               M. Finkel
+Expires: 11 January 2024                                      Apple Inc.
+                                                               S. Valdez
+                                                              Google LLC
+                                                              C. A. Wood
+                                                              Cloudflare
+                                                            10 July 2023
 
 
            The K-Check Protocol for HTTP Resource Consistency
@@ -81,7 +86,7 @@ Table of Contents
      8.1.  Normative References
      8.2.  Informative References
    Acknowledgments
-   Author's Address
+   Authors' Addresses
 
 1.  Introduction
 
@@ -465,8 +470,23 @@ Acknowledgments
    This document is based on the [DOUBLE-CHECK] protocol from Benjamin
    Schwartz.
 
-Author's Address
+Authors' Addresses
 
-   J. Doe
-   Mars
-   Email: jdoe@weylandyutani.com
+   Benjamin Beurdouche
+   Inria & Mozilla
+   Email: ietf@beurdouche.com
+
+
+   Matthew Finkel
+   Apple Inc.
+   Email: sysrqb@apple.com
+
+
+   Steven Valdez
+   Google LLC
+   Email: svaldez@chromium.org
+
+
+   Christopher A. Wood
+   Cloudflare
+   Email: caw@heapingbits.net

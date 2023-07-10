@@ -5,7 +5,10 @@
 <meta content="Common,Latin" name="scripts">
 <meta content="initial-scale=1.0" name="viewport">
 <title>The K-Check Protocol for HTTP Resource Consistency</title>
-<meta content="J. Doe" name="author">
+<meta content="Benjamin Beurdouche" name="author">
+<meta content="Matthew Finkel" name="author">
+<meta content="Steven Valdez" name="author">
+<meta content="Christopher A. Wood" name="author">
 <meta content="
        This document describes a protocol called K-Check for implementing HTTP resource consistency checks.
 The primary use case for K-Check is for deployments of protocols such as Privacy Pass and Oblivious
@@ -1054,7 +1057,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <td class="right">July 2023</td>
 </tr></thead>
 <tfoot><tr>
-<td class="left">Doe</td>
+<td class="left">Beurdouche, et al.</td>
 <td class="center">Expires 11 January 2024</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
@@ -1074,11 +1077,23 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
 <dd class="expires"><time datetime="2024-01-11">11 January 2024</time></dd>
-<dt class="label-authors">Author:</dt>
+<dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
-      <div class="author-name">J. Doe</div>
-<div class="org">Mars</div>
+      <div class="author-name">B. Beurdouche</div>
+<div class="org">Inria &amp; Mozilla</div>
+</div>
+<div class="author">
+      <div class="author-name">M. Finkel</div>
+<div class="org">Apple Inc.</div>
+</div>
+<div class="author">
+      <div class="author-name">S. Valdez</div>
+<div class="org">Google LLC</div>
+</div>
+<div class="author">
+      <div class="author-name">C. A. Wood</div>
+<div class="org">Cloudflare</div>
 </div>
 </dd>
 </dl>
@@ -1203,7 +1218,7 @@ resource (typically, a public key).<a href="#section-abstract-1" class="pilcrow"
             <p id="section-toc.1-1.9.1"><a href="#appendix-A" class="auto internal xref"></a><a href="#name-acknowledgments" class="internal xref">Acknowledgments</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10">
-            <p id="section-toc.1-1.10.1"><a href="#appendix-B" class="auto internal xref"></a><a href="#name-authors-address" class="internal xref">Author's Address</a></p>
+            <p id="section-toc.1-1.10.1"><a href="#appendix-B" class="auto internal xref"></a><a href="#name-authors-addresses" class="internal xref">Authors' Addresses</a></p>
 </li>
         </ul>
 </nav>
@@ -1589,15 +1604,39 @@ as is defined in <span>[<a href="#CONSISTENCY" class="cite xref">CONSISTENCY</a>
 </div>
 <div id="authors-addresses">
 <section id="appendix-B">
-      <h2 id="name-authors-address">
-<a href="#name-authors-address" class="section-name selfRef">Author's Address</a>
+      <h2 id="name-authors-addresses">
+<a href="#name-authors-addresses" class="section-name selfRef">Authors' Addresses</a>
       </h2>
 <address class="vcard">
-        <div dir="auto" class="left"><span class="fn nameRole">J. Doe</span></div>
-<div dir="auto" class="left"><span class="org">Mars</span></div>
+        <div dir="auto" class="left"><span class="fn nameRole">Benjamin Beurdouche</span></div>
+<div dir="auto" class="left"><span class="org">Inria &amp; Mozilla</span></div>
 <div class="email">
 <span>Email:</span>
-<a href="mailto:jdoe@weylandyutani.com" class="email">jdoe@weylandyutani.com</a>
+<a href="mailto:ietf@beurdouche.com" class="email">ietf@beurdouche.com</a>
+</div>
+</address>
+<address class="vcard">
+        <div dir="auto" class="left"><span class="fn nameRole">Matthew Finkel</span></div>
+<div dir="auto" class="left"><span class="org">Apple Inc.</span></div>
+<div class="email">
+<span>Email:</span>
+<a href="mailto:sysrqb@apple.com" class="email">sysrqb@apple.com</a>
+</div>
+</address>
+<address class="vcard">
+        <div dir="auto" class="left"><span class="fn nameRole">Steven Valdez</span></div>
+<div dir="auto" class="left"><span class="org">Google LLC</span></div>
+<div class="email">
+<span>Email:</span>
+<a href="mailto:svaldez@chromium.org" class="email">svaldez@chromium.org</a>
+</div>
+</address>
+<address class="vcard">
+        <div dir="auto" class="left"><span class="fn nameRole">Christopher A. Wood</span></div>
+<div dir="auto" class="left"><span class="org">Cloudflare</span></div>
+<div class="email">
+<span>Email:</span>
+<a href="mailto:caw@heapingbits.net" class="email">caw@heapingbits.net</a>
 </div>
 </address>
 </section>
