@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2023-07-09T00:28:44.156704+00:00",
+  "timestamp": "2023-07-11T00:22:44.755802+00:00",
   "repo": "chris-wood/draft-group-privacypass-k-check",
   "labels": [
     {
@@ -99,6 +99,37 @@
           "body": "Closing as resolved by #2.",
           "createdAt": "2023-07-06T11:30:18Z",
           "updatedAt": "2023-07-06T11:30:18Z"
+        }
+      ]
+    },
+    {
+      "number": 5,
+      "id": "I_kwDOJv72Bc5rHLZC",
+      "title": "Consistency at the end of key validity",
+      "url": "https://github.com/chris-wood/draft-group-privacypass-k-check/issues/5",
+      "state": "OPEN",
+      "author": "tfpauly",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "If a key config doesn't cover its expiry time, a client could potentially have checked a key as being valid and continue to use it over time as long as it sees challenges from the origin using that key.\r\n\r\nHowever, if the key had actually rotated for everyone else, a client may be targeted by being the only one in the set still using an old key.",
+      "createdAt": "2023-07-10T15:42:52Z",
+      "updatedAt": "2023-07-10T15:46:06Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "tfpauly",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Adding a `not-after` value to a key mitigates this for the scheduled rotation cases.",
+          "createdAt": "2023-07-10T15:44:47Z",
+          "updatedAt": "2023-07-10T15:44:47Z"
+        },
+        {
+          "author": "tfpauly",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Alternatively, the k-check proxy could tell clients about the cadence to check in",
+          "createdAt": "2023-07-10T15:46:06Z",
+          "updatedAt": "2023-07-10T15:46:06Z"
         }
       ]
     }
@@ -382,6 +413,177 @@
               "updatedAt": "2023-07-05T14:13:59Z"
             }
           ]
+        }
+      ]
+    },
+    {
+      "number": 4,
+      "id": "PR_kwDOJv72Bc5VGHjr",
+      "title": "First come first serve check",
+      "url": "https://github.com/chris-wood/draft-group-privacypass-k-check/pull/4",
+      "state": "MERGED",
+      "author": "chris-wood",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2023-07-10T14:43:27Z",
+      "updatedAt": "2023-07-10T18:43:05Z",
+      "baseRepository": "chris-wood/draft-group-privacypass-k-check",
+      "baseRefName": "main",
+      "baseRefOid": "f6baeff15a7550ab185e6699ed91a0b318b62507",
+      "headRepository": "chris-wood/draft-group-privacypass-k-check",
+      "headRefName": "caw/fcfs",
+      "headRefOid": "52d8126151e245aab23c8f02b476bf8d0f1007a1",
+      "closedAt": "2023-07-10T18:43:05Z",
+      "mergedAt": "2023-07-10T18:43:05Z",
+      "mergedBy": "chris-wood",
+      "mergeCommit": {
+        "oid": "105824414905afdaed8a987e3a59da7d576e3bfa"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOJv72Bc5avJ91",
+          "commit": {
+            "abbreviatedOid": "da86a05"
+          },
+          "author": "sysrqb",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2023-07-10T15:05:44Z",
+          "updatedAt": "2023-07-10T15:08:03Z",
+          "comments": [
+            {
+              "originalPosition": 38,
+              "body": "Is this saying that the \"first valid representation\" is:\r\n1. The first resource, sorted by \"not-before\" value, if present\r\n1. Otherwise, the first resource, sorted lexicographically by keyid?",
+              "createdAt": "2023-07-10T15:05:44Z",
+              "updatedAt": "2023-07-10T15:08:03Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOJv72Bc5avQjl",
+          "commit": {
+            "abbreviatedOid": "da86a05"
+          },
+          "author": "chris-wood",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-07-10T15:18:43Z",
+          "updatedAt": "2023-07-10T15:18:43Z",
+          "comments": [
+            {
+              "originalPosition": 38,
+              "body": "It's saying that it's the first key in the list that the client would attempt to use. ",
+              "createdAt": "2023-07-10T15:18:43Z",
+              "updatedAt": "2023-07-10T15:18:43Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOJv72Bc5avRIq",
+          "commit": {
+            "abbreviatedOid": "da86a05"
+          },
+          "author": "tfpauly",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2023-07-10T15:19:58Z",
+          "updatedAt": "2023-07-10T15:20:01Z",
+          "comments": [
+            {
+              "originalPosition": 38,
+              "body": "Might be nice to clarify \"the first valid representation (the first entry in the list that the client is able to use)\"...",
+              "createdAt": "2023-07-10T15:19:58Z",
+              "updatedAt": "2023-07-10T15:20:01Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOJv72Bc5avRfs",
+          "commit": {
+            "abbreviatedOid": "da86a05"
+          },
+          "author": "chris-wood",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-07-10T15:20:43Z",
+          "updatedAt": "2023-07-10T15:20:44Z",
+          "comments": [
+            {
+              "originalPosition": 35,
+              "body": "```suggestion\r\nClients compute the first valid representation of this directory, i.e., the first entry in the list that the client can use, which might be the key ID\r\n```",
+              "createdAt": "2023-07-10T15:20:44Z",
+              "updatedAt": "2023-07-10T15:20:44Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOJv72Bc5avRju",
+          "commit": {
+            "abbreviatedOid": "da86a05"
+          },
+          "author": "chris-wood",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-07-10T15:20:51Z",
+          "updatedAt": "2023-07-10T15:20:52Z",
+          "comments": [
+            {
+              "originalPosition": 38,
+              "body": "Yep, done!",
+              "createdAt": "2023-07-10T15:20:51Z",
+              "updatedAt": "2023-07-10T15:20:52Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 6,
+      "id": "PR_kwDOJv72Bc5VIHXy",
+      "title": "Add as author",
+      "url": "https://github.com/chris-wood/draft-group-privacypass-k-check/pull/6",
+      "state": "MERGED",
+      "author": "sysrqb",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2023-07-10T20:22:29Z",
+      "updatedAt": "2023-07-10T20:23:19Z",
+      "baseRepository": "chris-wood/draft-group-privacypass-k-check",
+      "baseRefName": "main",
+      "baseRefOid": "1f50e3d918735dd1c9a52d6d9612d6ee1bb07bec",
+      "headRepository": "sysrqb/draft-group-privacypass-k-check",
+      "headRefName": "author",
+      "headRefOid": "31a1b48b73140f1bc7898be1208989cb0a11e81c",
+      "closedAt": "2023-07-10T20:23:19Z",
+      "mergedAt": "2023-07-10T20:23:19Z",
+      "mergedBy": "chris-wood",
+      "mergeCommit": {
+        "oid": "57dd72defef1180f256bde8a29171b365366dce3"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOJv72Bc5axuzp",
+          "commit": {
+            "abbreviatedOid": "31a1b48"
+          },
+          "author": "chris-wood",
+          "authorAssociation": "OWNER",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2023-07-10T20:23:12Z",
+          "updatedAt": "2023-07-10T20:23:12Z",
+          "comments": []
         }
       ]
     }
