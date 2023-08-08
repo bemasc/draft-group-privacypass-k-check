@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2023-07-11T00:22:44.755802+00:00",
+  "timestamp": "2023-08-08T00:21:00.972292+00:00",
   "repo": "chris-wood/draft-group-privacypass-k-check",
   "labels": [
     {
@@ -132,6 +132,22 @@
           "updatedAt": "2023-07-10T15:46:06Z"
         }
       ]
+    },
+    {
+      "number": 7,
+      "id": "I_kwDOJv72Bc5tqMz-",
+      "title": "Batched fetching for k-check.",
+      "url": "https://github.com/chris-wood/draft-group-privacypass-k-check/issues/7",
+      "state": "OPEN",
+      "author": "dvorak42",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "For some use cases, it is useful to be able to fetch multiple configurations at the same time to reduce the number of fetches/ensure consistency across multiple resources.\r\n\r\nThis tracks adding a batched mode for the client to request a bundle/batch of resource requests.",
+      "createdAt": "2023-08-07T15:58:20Z",
+      "updatedAt": "2023-08-07T15:58:20Z",
+      "closedAt": null,
+      "comments": []
     }
   ],
   "pulls": [
