@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2023-08-08T00:21:00.972292+00:00",
+  "timestamp": "2023-08-10T00:21:33.368231+00:00",
   "repo": "chris-wood/draft-group-privacypass-k-check",
   "labels": [
     {
@@ -145,9 +145,17 @@
       "labels": [],
       "body": "For some use cases, it is useful to be able to fetch multiple configurations at the same time to reduce the number of fetches/ensure consistency across multiple resources.\r\n\r\nThis tracks adding a batched mode for the client to request a bundle/batch of resource requests.",
       "createdAt": "2023-08-07T15:58:20Z",
-      "updatedAt": "2023-08-07T15:58:20Z",
+      "updatedAt": "2023-08-08T14:52:35Z",
       "closedAt": null,
-      "comments": []
+      "comments": [
+        {
+          "author": "chris-wood",
+          "authorAssociation": "OWNER",
+          "body": "Is there a technical reason why requesting multiple resources in parallel work for this use case? H2 and H3 handle parallel requests quite well.",
+          "createdAt": "2023-08-08T14:52:35Z",
+          "updatedAt": "2023-08-08T14:52:35Z"
+        }
+      ]
     }
   ],
   "pulls": [
