@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2023-08-15T00:18:05.782044+00:00",
+  "timestamp": "2023-08-17T00:17:35.295178+00:00",
   "repo": "chris-wood/draft-group-privacypass-k-check",
   "labels": [
     {
@@ -145,7 +145,7 @@
       "labels": [],
       "body": "For some use cases, it is useful to be able to fetch multiple configurations at the same time to reduce the number of fetches/ensure consistency across multiple resources.\r\n\r\nThis tracks adding a batched mode for the client to request a bundle/batch of resource requests.",
       "createdAt": "2023-08-07T15:58:20Z",
-      "updatedAt": "2023-08-14T13:48:16Z",
+      "updatedAt": "2023-08-15T17:55:38Z",
       "closedAt": null,
       "comments": [
         {
@@ -161,6 +161,13 @@
           "body": "I'm not sure of the spelling, but effectively we want the client to say \"please give me all the FOO configurations\" (ie please give me all the PST issuer configurations).\r\n\r\nThe current way of doing this might be to fetch a \"FOO_directory\" resource that lists all the configuration resource identifiers and then run a bunch of parallel requests for each of those resources, but now we have at least one extra hop for the directory fetch. ",
           "createdAt": "2023-08-14T13:48:16Z",
           "updatedAt": "2023-08-14T13:48:16Z"
+        },
+        {
+          "author": "chris-wood",
+          "authorAssociation": "OWNER",
+          "body": "Is that extra hop -- especially for an offline step -- really worth complicating the protocol?",
+          "createdAt": "2023-08-15T17:55:38Z",
+          "updatedAt": "2023-08-15T17:55:38Z"
         }
       ]
     }
