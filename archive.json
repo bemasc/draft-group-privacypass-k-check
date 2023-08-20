@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2023-08-17T00:17:35.295178+00:00",
+  "timestamp": "2023-08-20T00:19:05.749121+00:00",
   "repo": "chris-wood/draft-group-privacypass-k-check",
   "labels": [
     {
@@ -145,7 +145,7 @@
       "labels": [],
       "body": "For some use cases, it is useful to be able to fetch multiple configurations at the same time to reduce the number of fetches/ensure consistency across multiple resources.\r\n\r\nThis tracks adding a batched mode for the client to request a bundle/batch of resource requests.",
       "createdAt": "2023-08-07T15:58:20Z",
-      "updatedAt": "2023-08-15T17:55:38Z",
+      "updatedAt": "2023-08-17T14:04:53Z",
       "closedAt": null,
       "comments": [
         {
@@ -168,6 +168,13 @@
           "body": "Is that extra hop -- especially for an offline step -- really worth complicating the protocol?",
           "createdAt": "2023-08-15T17:55:38Z",
           "updatedAt": "2023-08-15T17:55:38Z"
+        },
+        {
+          "author": "dvorak42",
+          "authorAssociation": "NONE",
+          "body": "My gut is that at scale, one resource request vs 11 (assuming around 10 issuer configurations) would have a substantial impact on latency and bandwidth for the K-check service (and caching) even with parallel requests. Though maybe CDNs have already solved some of the caching/bandwidth issues (local caching of results?) that K-check servers can rely on?",
+          "createdAt": "2023-08-17T14:04:53Z",
+          "updatedAt": "2023-08-17T14:04:53Z"
         }
       ]
     }
