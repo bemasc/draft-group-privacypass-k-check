@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2023-08-20T00:19:05.749121+00:00",
+  "timestamp": "2023-08-22T00:18:00.841637+00:00",
   "repo": "chris-wood/draft-group-privacypass-k-check",
   "labels": [
     {
@@ -177,6 +177,22 @@
           "updatedAt": "2023-08-17T14:04:53Z"
         }
       ]
+    },
+    {
+      "number": 8,
+      "id": "I_kwDOJv72Bc5u2DuQ",
+      "title": "Thundering herd at expiration time",
+      "url": "https://github.com/chris-wood/draft-group-privacypass-k-check/issues/8",
+      "state": "OPEN",
+      "author": "sysrqb",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Consider adding a deployment consideration comment about how to avoid the thundering herd problem.",
+      "createdAt": "2023-08-21T15:45:45Z",
+      "updatedAt": "2023-08-21T15:45:45Z",
+      "closedAt": null,
+      "comments": []
     }
   ],
   "pulls": [
