@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2023-08-22T00:18:00.841637+00:00",
+  "timestamp": "2023-08-29T00:18:25.616420+00:00",
   "repo": "chris-wood/draft-group-privacypass-k-check",
   "labels": [
     {
@@ -190,9 +190,17 @@
       "labels": [],
       "body": "Consider adding a deployment consideration comment about how to avoid the thundering herd problem.",
       "createdAt": "2023-08-21T15:45:45Z",
-      "updatedAt": "2023-08-21T15:45:45Z",
+      "updatedAt": "2023-08-28T15:28:24Z",
       "closedAt": null,
-      "comments": []
+      "comments": [
+        {
+          "author": "sysrqb",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Double-check contains the following recommendation:\r\n```\r\nAll clients of the same Proxy and Desired Resource will have locally cached copies with the same expiration time. When this copy expires, all active clients will send refresh GET requests to the Proxy at their next request. Proxies SHOULD use \"request coalescing\" to avoid duplicate cache-refresh requests to the Origin.\r\n\r\nIf the Desired Resource has changed, these clients will all initiate GET requests to the Origin (via transport proxy if applicable) to double-check the new contents. Proxies and Origins MAY use an HTTP 503 response with a \"Retry-After\" header to manage load spikes.\r\n```\r\n\r\nAlternatively, clients could re-check/refresh/update their cached keys at some (relatively small) offset, chosen at random, from the expiration time. This wouldn't prevent a spike around the expiration time, but this would at least smooth the spike a bit. Ben Schwartz has an interesting idea of how to do this safely.",
+          "createdAt": "2023-08-28T15:28:23Z",
+          "updatedAt": "2023-08-28T15:28:23Z"
+        }
+      ]
     }
   ],
   "pulls": [
