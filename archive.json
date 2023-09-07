@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2023-08-29T00:18:25.616420+00:00",
+  "timestamp": "2023-09-07T00:18:14.865242+00:00",
   "repo": "chris-wood/draft-group-privacypass-k-check",
   "labels": [
     {
@@ -201,6 +201,54 @@
           "updatedAt": "2023-08-28T15:28:23Z"
         }
       ]
+    },
+    {
+      "number": 9,
+      "id": "I_kwDOJv72Bc5wTmOc",
+      "title": "Incorrect statement about Mirror's response format",
+      "url": "https://github.com/chris-wood/draft-group-privacypass-k-check/issues/9",
+      "state": "OPEN",
+      "author": "sysrqb",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "```\r\nOtherwise, the response to a mirror request is the content that was contained in the target resource. \r\n```\r\n\r\nThis conflicts with the later statement that the response is encoded using BHTTP. Probably we should just delete this sentence.",
+      "createdAt": "2023-09-06T14:49:30Z",
+      "updatedAt": "2023-09-06T14:49:30Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 10,
+      "id": "I_kwDOJv72Bc5wT5uc",
+      "title": "Consider ensuring end-to-end configuration authenticity",
+      "url": "https://github.com/chris-wood/draft-group-privacypass-k-check/issues/10",
+      "state": "OPEN",
+      "author": "sysrqb",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "The client may not have a mechanism for verifying that a configuration is authentic - only consistent within the assumptions of the design. For Privacy Pass, the client already processes a cryptographic key from which it derives the keyid and the client trusts that its set of K-Check mirrors won't collude with the origin. A similar situation exists with other profiles, such as OHTTP.\r\n\r\nOne suggestion we received is requiring self-authenticating configurations.",
+      "createdAt": "2023-09-06T15:28:35Z",
+      "updatedAt": "2023-09-06T15:28:35Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 11,
+      "id": "I_kwDOJv72Bc5wT85H",
+      "title": "Rely on a quorum of mirrors",
+      "url": "https://github.com/chris-wood/draft-group-privacypass-k-check/issues/11",
+      "state": "OPEN",
+      "author": "sysrqb",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Currently we describe the failure mode based on some probability of mirror failure/misbehavior. This can be improved.\r\n\r\n```\r\nWith at least one dishonest mirror, the probability of discovering an inconsistency is 1 - (1 / 2^(k-1)). This is the probability that each individual mirror check succeeds in the mirror protocol.\r\n```\r\n\r\nOne suggestion we made is using a concept of quorum instead.",
+      "createdAt": "2023-09-06T15:35:49Z",
+      "updatedAt": "2023-09-06T15:35:49Z",
+      "closedAt": null,
+      "comments": []
     }
   ],
   "pulls": [
