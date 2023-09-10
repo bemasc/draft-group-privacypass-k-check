@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2023-09-07T00:18:14.865242+00:00",
+  "timestamp": "2023-09-10T00:20:02.525558+00:00",
   "repo": "chris-wood/draft-group-privacypass-k-check",
   "labels": [
     {
@@ -62,7 +62,7 @@
       "labels": [],
       "body": "If the resource can get refreshed very frequently (like every second), a client could still be targeted without detecting an attack. One solution is to have a minimum time for validity.",
       "createdAt": "2023-06-26T15:54:23Z",
-      "updatedAt": "2023-07-06T11:30:18Z",
+      "updatedAt": "2023-09-08T16:02:33Z",
       "closedAt": "2023-07-06T11:30:18Z",
       "comments": [
         {
@@ -99,6 +99,13 @@
           "body": "Closing as resolved by #2.",
           "createdAt": "2023-07-06T11:30:18Z",
           "updatedAt": "2023-07-06T11:30:18Z"
+        },
+        {
+          "author": "bemasc",
+          "authorAssociation": "NONE",
+          "body": "I think this needs some more motivation.  If clients only initiate sessions using currently-fresh resources, then short validity windows do not provide any ability to target individual clients (ignoring clock skew).\r\n\r\nI would like to see some more specific rationale for this recommendation, if it is necessary at all.",
+          "createdAt": "2023-09-08T16:02:33Z",
+          "updatedAt": "2023-09-08T16:02:33Z"
         }
       ]
     },
@@ -190,7 +197,7 @@
       "labels": [],
       "body": "Consider adding a deployment consideration comment about how to avoid the thundering herd problem.",
       "createdAt": "2023-08-21T15:45:45Z",
-      "updatedAt": "2023-08-28T15:28:24Z",
+      "updatedAt": "2023-09-08T16:14:22Z",
       "closedAt": null,
       "comments": [
         {
@@ -199,6 +206,13 @@
           "body": "Double-check contains the following recommendation:\r\n```\r\nAll clients of the same Proxy and Desired Resource will have locally cached copies with the same expiration time. When this copy expires, all active clients will send refresh GET requests to the Proxy at their next request. Proxies SHOULD use \"request coalescing\" to avoid duplicate cache-refresh requests to the Origin.\r\n\r\nIf the Desired Resource has changed, these clients will all initiate GET requests to the Origin (via transport proxy if applicable) to double-check the new contents. Proxies and Origins MAY use an HTTP 503 response with a \"Retry-After\" header to manage load spikes.\r\n```\r\n\r\nAlternatively, clients could re-check/refresh/update their cached keys at some (relatively small) offset, chosen at random, from the expiration time. This wouldn't prevent a spike around the expiration time, but this would at least smooth the spike a bit. Ben Schwartz has an interesting idea of how to do this safely.",
           "createdAt": "2023-08-28T15:28:23Z",
           "updatedAt": "2023-08-28T15:28:23Z"
+        },
+        {
+          "author": "bemasc",
+          "authorAssociation": "NONE",
+          "body": "The best solution I've thought of is to define each profile as providing a \"ladder\" comprising a pair of resources (perhaps distinguished by a request header).  The client fetches both, which are cached independently, and verifies that that they indicate the same configurations during the overlap in their cache lifetimes.  After the first expiration, the client picks a random time before the second one expires to refresh the first one.  This ensures that refresh requests are not clustered near expiration times, and allows us to continue using the Mirror Protocol as-is.  (Mirrors do not need to be aware of the ladder semantics.)  However, it doubles the number of requests, and complicates the deployment for origins.",
+          "createdAt": "2023-09-08T16:14:22Z",
+          "updatedAt": "2023-09-08T16:14:22Z"
         }
       ]
     },
@@ -230,9 +244,17 @@
       "labels": [],
       "body": "The client may not have a mechanism for verifying that a configuration is authentic - only consistent within the assumptions of the design. For Privacy Pass, the client already processes a cryptographic key from which it derives the keyid and the client trusts that its set of K-Check mirrors won't collude with the origin. A similar situation exists with other profiles, such as OHTTP.\r\n\r\nOne suggestion we received is requiring self-authenticating configurations.",
       "createdAt": "2023-09-06T15:28:35Z",
-      "updatedAt": "2023-09-06T15:28:35Z",
+      "updatedAt": "2023-09-08T16:11:15Z",
       "closedAt": null,
-      "comments": []
+      "comments": [
+        {
+          "author": "bemasc",
+          "authorAssociation": "NONE",
+          "body": "Specifically, K-Check appears to weaken the security of OHTTP.  Normally, OHTTP guarantees authenticity and privacy as long as at least one of the proxy or the gateway is well-behaved.  With K-Check, authenticity and privacy can fail even if the gateway is well-behaved, if the K-Check mirrors collude to impersonate the gateway.\r\n\r\nEDIT: I think the most practical solution to this is to simply note the problem and recommend that K-Check only be used with self-authenticating resources.  A more aggressive solution would be to specify JSON Web Signature or HTTP Signed Exchange as the supported resource type.",
+          "createdAt": "2023-09-08T16:09:41Z",
+          "updatedAt": "2023-09-08T16:11:15Z"
+        }
+      ]
     },
     {
       "number": 11,
