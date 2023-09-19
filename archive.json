@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2023-09-10T00:20:02.525558+00:00",
+  "timestamp": "2023-09-19T00:19:08.464141+00:00",
   "repo": "chris-wood/draft-group-privacypass-k-check",
   "labels": [
     {
@@ -244,7 +244,7 @@
       "labels": [],
       "body": "The client may not have a mechanism for verifying that a configuration is authentic - only consistent within the assumptions of the design. For Privacy Pass, the client already processes a cryptographic key from which it derives the keyid and the client trusts that its set of K-Check mirrors won't collude with the origin. A similar situation exists with other profiles, such as OHTTP.\r\n\r\nOne suggestion we received is requiring self-authenticating configurations.",
       "createdAt": "2023-09-06T15:28:35Z",
-      "updatedAt": "2023-09-08T16:11:15Z",
+      "updatedAt": "2023-09-18T20:03:06Z",
       "closedAt": null,
       "comments": [
         {
@@ -253,6 +253,48 @@
           "body": "Specifically, K-Check appears to weaken the security of OHTTP.  Normally, OHTTP guarantees authenticity and privacy as long as at least one of the proxy or the gateway is well-behaved.  With K-Check, authenticity and privacy can fail even if the gateway is well-behaved, if the K-Check mirrors collude to impersonate the gateway.\r\n\r\nEDIT: I think the most practical solution to this is to simply note the problem and recommend that K-Check only be used with self-authenticating resources.  A more aggressive solution would be to specify JSON Web Signature or HTTP Signed Exchange as the supported resource type.",
           "createdAt": "2023-09-08T16:09:41Z",
           "updatedAt": "2023-09-08T16:11:15Z"
+        },
+        {
+          "author": "sysrqb",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "I think there is an unstated assumption somewhere in here. Can you help clarify?\r\n\r\nI agree with the privacy and authenticity guarantees you described, without using K-Check, as long as the relay and gateway don't collude and at least one of them is well-behaved. The underlying assumption here is that the client was pre-configured with the gateway's key configuration and that configuration was consistent with all other clients of this service (eliding the need for K-Check, in this case).\r\n\r\nIn the case where the client must check the consistency of the configuration it has, then we can still assume the client was pre-configured with that configuration. If the client has multiple K-Check servers configured, then if a majority of those servers collude, then they can persuade the client that the pre-configured configuration is not consistent. This would cause a DoS, but not reduce the guarantees of the service.\r\n\r\nWere you thinking of different assumptions? Maybe the client isn't pre-configured with the key configuration and it must fetch (or update) its cache?",
+          "createdAt": "2023-09-17T19:45:32Z",
+          "updatedAt": "2023-09-17T19:45:32Z"
+        },
+        {
+          "author": "bemasc",
+          "authorAssociation": "NONE",
+          "body": "> The underlying assumption here is that the client was pre-configured with the gateway's key configuration\r\n\r\nTo be precise, I'm imagining \"normal OHTTP\" to work by pre-configuring the client with a URL for the gateway's key configuration, which the client fetches over an authenticated transport (i.e. \"direct discovery\").  As written, the K-Check document seems to _replace_ this step, by fetching via the mirror pool.  If the intention is instead to _augment_ the authenticated fetch, the document should say so.  However, that would be very similar to DoubleCheck, and raises some of the same issues:\r\n\r\n1. Direct discovery (without a transport proxy with a suitable trust model) reveals the client IP addresses to the gateway.  While this doesn't directly break the unlinkability guarantees, it creates a significant weakness when joined with external behavioral profiles (see also #15), and a near-total break if timing correlations are present (i.e., config fetch immediately precedes config use, see #14).\r\n2. Direct discovery exacerbates the [Thundering Herd problem](https://datatracker.ietf.org/doc/html/draft-schwartz-ohai-consistency-doublecheck-03#name-thundering-herds) when the target resource changes.",
+          "createdAt": "2023-09-18T14:20:38Z",
+          "updatedAt": "2023-09-18T14:20:38Z"
+        },
+        {
+          "author": "chris-wood",
+          "authorAssociation": "OWNER",
+          "body": "> As written, the K-Check document seems to replace this step, by fetching via the mirror pool. \r\n\r\nThis isn't the case. K-Check _complements_ this check. It assumes that the input key material was obtained in some authoritative fashion (thereby knowing that it's \"correct\"), and its purpose is to check that this is the same key shared by others (checking if it's \"consistent\").",
+          "createdAt": "2023-09-18T15:36:21Z",
+          "updatedAt": "2023-09-18T15:36:21Z"
+        },
+        {
+          "author": "bemasc",
+          "authorAssociation": "NONE",
+          "body": "OK, thanks for the explanation.  For this issue, I think it would be sufficient to clarify that in the document.\r\n\r\nAs noted in #16, I'm not sure it's always a good idea to draw a total abstraction boundary between correctness and consistency.  If the correctness validation procedure (or subsequent use) relies on a privacy proxy, then the K-Check procedure can safely be simplified to K=1, with improved privacy.",
+          "createdAt": "2023-09-18T16:53:01Z",
+          "updatedAt": "2023-09-18T16:53:01Z"
+        },
+        {
+          "author": "chris-wood",
+          "authorAssociation": "OWNER",
+          "body": "> As noted in https://github.com/chris-wood/draft-group-privacypass-k-check/issues/16, I'm not sure it's always a good idea to draw a total abstraction boundary between correctness and consistency. If the correctness validation procedure (or subsequent use) relies on a privacy proxy, then the K-Check procedure can safely be simplified to K=1, with improved privacy.\r\n\r\nIt doesn't necessarily rely on a privacy proxy, which is why the separation exists. As an example, clients do not necessarily need to hide their IP address from an OHTTP gateway if they fetch the config directly from it. The whole point of the consistency check is to ensure that their config is, well, consistent with every other client (using the same set of mirrors), regardless of how they happened to obtain the authenticated copy. ",
+          "createdAt": "2023-09-18T19:14:33Z",
+          "updatedAt": "2023-09-18T19:14:33Z"
+        },
+        {
+          "author": "bemasc",
+          "authorAssociation": "NONE",
+          "body": "I'm totally OK with defining K-Check (or perhaps the Mirror Protocol) as a limited-purpose component that is separate from authentication and usage of the resource.  Currently, the draft is not clear on that point; I came away with the impression that K-Check was also being used for authentication (which it does provide under certain, slightly worrying security assumptions).\r\n\r\nI do think that usage of K-Check is actually not as independent from the protocol as the current text implies, but that's a topic for a different issue.",
+          "createdAt": "2023-09-18T20:03:05Z",
+          "updatedAt": "2023-09-18T20:03:05Z"
         }
       ]
     },
@@ -266,9 +308,65 @@
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
-      "body": "Currently we describe the failure mode based on some probability of mirror failure/misbehavior. This can be improved.\r\n\r\n```\r\nWith at least one dishonest mirror, the probability of discovering an inconsistency is 1 - (1 / 2^(k-1)). This is the probability that each individual mirror check succeeds in the mirror protocol.\r\n```\r\n\r\nOne suggestion we made is using a concept of quorum instead.",
+      "body": "Currently we describe the failure mode based on some probability of mirror failure/misbehavior. This can be improved.\r\n\r\n```\r\nWith at least one dishonest mirror, the probability of discovering an inconsistency is 1 - (1 / 2^(k-1)). This is the probability that each individual mirror check succeeds in the mirror protocol.\r\n```\r\n\r\nOne suggestion we received is using a concept of quorum instead.",
       "createdAt": "2023-09-06T15:35:49Z",
-      "updatedAt": "2023-09-06T15:35:49Z",
+      "updatedAt": "2023-09-17T19:46:13Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 14,
+      "id": "I_kwDOJv72Bc5xTu1a",
+      "title": "Increasing K reduces privacy under timing correlation",
+      "url": "https://github.com/chris-wood/draft-group-privacypass-k-check/issues/14",
+      "state": "OPEN",
+      "author": "bemasc",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "K-Check is designed to improve in privacy as K (or the threshold `t`) increases.  However, if a timing correlation is present (e.g., the client fetches an OHTTP config immediately before using it), increasing K actually reduces privacy, because any single colluding mirror can reveal the client IP to the gateway.  Adding more mirrors increases the likelihood that one of them is malicious.\r\n\r\nIf timing attacks are present in the use case, I think the optimal value of K is likely to be 1.\r\n\r\nIn some use cases, timing correlations are present for some requests (e.g., the first request issued when the configuration is not locally in cache) but not others.  In these cases, it might make sense to perform a single check (K=1) initially, and then perform more checks asynchronously (according to some randomized schedule) to catch if the initial mirror was colluding and served a targeted resource.\r\n\r\nThese issues can be avoided by tunneling K-Check through a trusted proxy, but if a trusted proxy exists then it can run the Mirror Protocol itself and K > 1 is unnecessary (see #16).",
+      "createdAt": "2023-09-18T13:53:09Z",
+      "updatedAt": "2023-09-18T14:36:03Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 15,
+      "id": "I_kwDOJv72Bc5xT8hE",
+      "title": "Consider client IP pool leakage",
+      "url": "https://github.com/chris-wood/draft-group-privacypass-k-check/issues/15",
+      "state": "OPEN",
+      "author": "bemasc",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "In K-Check, the mirrors appear to learn the client IPs.  (There is no requirement to access the mirrors only via a trusted transport proxy.)  Even if the colluding parties aren't able to correlate the individual client IPs to specific requests (e.g. via a timing attack as in #14), a malicious mirror could reveal the entire IP pool to the target.  The target may be able to join configuration use with externally available information about the client IPs to deanonymize requests.\r\n\r\nFor example, consider a web search use case over OHTTP, with a client IP pool of 1,000 users.  If a search query arrives for a topic that is only of interest to 10% of users, in a language spoken by 10% of users, from a user-agent used by 10% of users, then the search provider might be able to use an external user profiling database to identify one client IP in the pool that is likely to be the source of that request.\r\n\r\nA possible mitigation would be to avoid using more than X% of the total pool of mirrors and keep that subset stable over time.  This reduces the likelihood that any single mirror can leak more than a fraction of the total client IP pool.  If one of the mirrors is colluding, the target only learns X% of the client IP pool.  This means that even if one client IP has a profile that is highly consistent with a particular request, there is also a significant possibility that the request came from some other, unknown client IP.",
+      "createdAt": "2023-09-18T14:19:41Z",
+      "updatedAt": "2023-09-18T15:57:27Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "chris-wood",
+          "authorAssociation": "OWNER",
+          "body": "From the call: address this via deployment specific considerations, stating that use cases which may need to hide the IP from mirrors should proxy requests. Also note the potential chicken-and-egg problem that can arise if one is using OHTTP to run K-Check for OHTTP!",
+          "createdAt": "2023-09-18T15:57:26Z",
+          "updatedAt": "2023-09-18T15:57:26Z"
+        }
+      ]
+    },
+    {
+      "number": 16,
+      "id": "I_kwDOJv72Bc5xUDiP",
+      "title": "Recommend K=1 for certain use cases",
+      "url": "https://github.com/chris-wood/draft-group-privacypass-k-check/issues/16",
+      "state": "OPEN",
+      "author": "bemasc",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "The K-Check protocol is described as an abstract, general-purpose consistency protocol, and in that context it makes sense for K to be a free parameter.  However, in specific use cases there may be particular values of K that make sense.  If the client's privacy protection is already subject to a Single Point of Failure, then the optimal value for K is 1, i.e. a mirror operated by the SPOF.\r\n\r\nFor example, in OHTTP, increasing K does not provide increased privacy protection, because a malicious Relay can break the privacy guarantee even if consistency is preserved.  Increasing K can even reduce privacy protection (see #14, #15).\r\n\r\nAccordingly, the draft should note some cases where K=1 is recommended.",
+      "createdAt": "2023-09-18T14:33:44Z",
+      "updatedAt": "2023-09-18T14:33:44Z",
       "closedAt": null,
       "comments": []
     }
@@ -725,6 +823,72 @@
           "comments": []
         }
       ]
+    },
+    {
+      "number": 12,
+      "id": "PR_kwDOJv72Bc5ag9Ym",
+      "title": "Fix a few sentences that cause confusion, and fix a typo",
+      "url": "https://github.com/chris-wood/draft-group-privacypass-k-check/pull/12",
+      "state": "OPEN",
+      "author": "sysrqb",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Closes #9 ",
+      "createdAt": "2023-09-17T20:29:21Z",
+      "updatedAt": "2023-09-18T15:34:57Z",
+      "baseRepository": "chris-wood/draft-group-privacypass-k-check",
+      "baseRefName": "main",
+      "baseRefOid": "57dd72defef1180f256bde8a29171b365366dce3",
+      "headRepository": "sysrqb/draft-group-privacypass-k-check",
+      "headRefName": "readability-improvements",
+      "headRefOid": "b9efb2bfbaeb070c70ed310bee7bef418a89b537",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOJv72Bc5hPL0-",
+          "commit": {
+            "abbreviatedOid": "b9efb2b"
+          },
+          "author": "chris-wood",
+          "authorAssociation": "OWNER",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2023-09-18T15:34:57Z",
+          "updatedAt": "2023-09-18T15:34:57Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 13,
+      "id": "PR_kwDOJv72Bc5ahAM8",
+      "title": "Define success with respect to a threshold of mirrors",
+      "url": "https://github.com/chris-wood/draft-group-privacypass-k-check/pull/13",
+      "state": "OPEN",
+      "author": "sysrqb",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Closes #11 ",
+      "createdAt": "2023-09-17T21:26:35Z",
+      "updatedAt": "2023-09-17T21:26:35Z",
+      "baseRepository": "chris-wood/draft-group-privacypass-k-check",
+      "baseRefName": "main",
+      "baseRefOid": "57dd72defef1180f256bde8a29171b365366dce3",
+      "headRepository": "sysrqb/draft-group-privacypass-k-check",
+      "headRefName": "mirror_threshold",
+      "headRefOid": "46b1e1ff2c5d57d083da353b8bffdc89fcd89096",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
     }
   ]
 }
